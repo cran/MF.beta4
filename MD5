@@ -1,15 +1,15 @@
-32b5996590c8ba62c895ed468a3a8ba8 *DESCRIPTION
+e9972ff5b9034cec2850bdfb17fd72fd *DESCRIPTION
 8ad4dadf3bd6425f3fc6514c0b49b7ba *NAMESPACE
 9cc778b7a9a495136551875c312d343c *NEWS
 839f712eeff06407cb454573d7bce697 *R/Mainfun.R
 38656925ffa2a010f1687dc6b25d93a2 *R/Mainfun.plot.R
-a7dd8e247fac40e3d06f08be37e339da *build/vignette.rds
+d73b74b627d5fa27c96848dd1c2b3328 *build/vignette.rds
 9d5b2a96811368fe51c865ff4095322c *data/forest_biodiversity_data.rda
 4152f0b8fc7c09360d44ed76cfe7853e *data/forest_function_data_normalized.rda
 efe3101503ed23a826bccc37b14584a9 *data/forest_function_data_raw.rda
 faf7a7cb5fdddc3388094981ae1b6f1f *inst/CITATION
-f526f15da5f259b87a8c2a92cd827044 *inst/doc/Introduction.Rnw
-7a81c75ba01fe2d9e3eb1dd0982c8445 *inst/doc/Introduction.pdf
+8f2c9e9170eeb9dd204b6fc9e914c904 *inst/doc/Introduction.Rnw
+fc973e69f1f9d894603f00f923b64011 *inst/doc/Introduction.pdf
 e893818353ac0275f370a6212d568c96 *man/MF.beta4-package.Rd
 6f2a18061fd04adce1992221155f804f *man/MF1_single.Rd
 9e8fec038511ce67411ff5e0b1de1144 *man/MF2_multiple.Rd
@@ -18,5 +18,5 @@ e893818353ac0275f370a6212d568c96 *man/MF.beta4-package.Rd
 40b03f6827abeca320ccd02e62f55114 *man/forest_function_data_normalized.Rd
 d63e5c8b07994b4f1ee74cf2cfba5ada *man/forest_function_data_raw.Rd
 3150b7f1c5cfd9556c504b2e79508ea0 *man/function_normalization.Rd
-f526f15da5f259b87a8c2a92cd827044 *vignettes/Introduction.Rnw
-0233393c1a8421ed139005d17e0a4528 *vignettes/mypaper.pdf
+8f2c9e9170eeb9dd204b6fc9e914c904 *vignettes/Introduction.Rnw
+d45d3179a0041d1cdc8056b1e13930c8 *vignettes/mypaper.pdf

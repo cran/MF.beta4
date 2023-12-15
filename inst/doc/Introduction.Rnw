@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{pdfpages}
-%\VignetteIndexEntry{Introduction Aug. 2022}
+%\VignetteIndexEntry{MF.beta4 Vignette (Dec. 2023)}
 
 \begin{document}
 \SweaveOpts{concordance=TRUE}

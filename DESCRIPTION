@@ -1,7 +1,7 @@
 Package: MF.beta4
 Type: Package
 Title: Measuring Ecosystem Multi-Functionality and Its Decomposition
-Version: 1.0.0
+Version: 1.0.1
 Author: Anne Chao [aut, cre],
   Chun-Yu Liu [ctb],
   KaiHsiang Hu [ctb]
@@ -40,7 +40,7 @@ RoxygenNote: 7.2.3
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 ByteCompile: true
-Packaged: 2023-12-12 14:32:34 UTC; stat-pc
+Packaged: 2023-12-15 07:07:58 UTC; stat-pc
 Repository: CRAN
 NeedsCompilation: no
-Date/Publication: 2023-12-12 21:30:02 UTC
+Date/Publication: 2023-12-15 13:20:11 UTC
