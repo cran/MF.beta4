@@ -1,7 +1,7 @@
-95b2f661625807b5c448e33d8122c424 *DESCRIPTION
+dd239328e1891113c6ab90e05b69ed9f *DESCRIPTION
 46bb25fe7b693fea63b050c5966a5413 *NAMESPACE
-7c2e8929f673d71f3f48dfbd2b66eb77 *NEWS
-839f712eeff06407cb454573d7bce697 *R/Mainfun.R
+da12f6f031506dbcd8bfcd58fe818e8c *NEWS
+6f493279a4a918665403c194153b717d *R/Mainfun.R
 fdae7c45843fa7fb93cbb3ce7ce06a10 *R/Mainfun.plot.R
 d73b74b627d5fa27c96848dd1c2b3328 *build/vignette.rds
 9d5b2a96811368fe51c865ff4095322c *data/forest_biodiversity_data.rda
@@ -9,7 +9,7 @@ d73b74b627d5fa27c96848dd1c2b3328 *build/vignette.rds
 efe3101503ed23a826bccc37b14584a9 *data/forest_function_data_raw.rda
 faf7a7cb5fdddc3388094981ae1b6f1f *inst/CITATION
 8f2c9e9170eeb9dd204b6fc9e914c904 *inst/doc/Introduction.Rnw
-d8e13ac0241fe6b40d20adec1dea22d9 *inst/doc/Introduction.pdf
+5080820b4332f53730b822b2feaf1e8c *inst/doc/Introduction.pdf
 e893818353ac0275f370a6212d568c96 *man/MF.beta4-package.Rd
 6f2a18061fd04adce1992221155f804f *man/MF1_single.Rd
 9e8fec038511ce67411ff5e0b1de1144 *man/MF2_multiple.Rd
