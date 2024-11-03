@@ -6,10 +6,12 @@
 #' For output obtained from \code{MF1_single}, if BEF relationships are desired within each category specified \code{by_group}, the \code{by_group} column must be included in the input.
 #' @param model specifying the fitting model, \code{model = "lm"} for linear model; \code{model = "LMM.intercept"},
 #' \code{"LMM.slope"} and \code{"LMM.both"} for linear mixed models with random effects for intercepts, slopes, and both, respectively.
-#' Default is \code{model = "LMM.both"}.
+#' Default is \code{model = "LMM.both"}. \cr
+#' If \code{output} is obtained from \code{MF2_multiple} with \code{by_pair = FALSE}, \code{model} can only set as \code{"lm"}.
 #' @param by_group the column name of the stratifying variable that is used to group data for model fitting. For example, if \code{by_group = "country"}, then model will be fitted within each country. Default is \code{NULL}. \cr
 #' It is required if a linear mixed model is selected in the \code{model}. \cr
-#' If \code{output} is obtained from \code{MF2_multiple}, the \code{by_group} setting must be the same as that set in \code{MF2_multiple}. 
+#' If \code{output} is obtained from \code{MF2_multiple} with \code{by_pair = TRUE}, the \code{by_group} setting must be the same as that set in \code{MF2_multiple}. \cr
+#' If \code{output} is obtained from \code{MF2_multiple} with \code{by_pair = FALSE}, the \code{by_group} must be \code{NULL}, because alpha/beta/gamma data points are not sufficient to fit model in each group. 
 #' @param caption caption that will be shown in the BEF plots; \code{caption = "slope"} to show the estimated slopes in each plot,
 #' or \code{caption = "R.squared"} to show the ordinary R-squared for linear models or estimated marginal and conditional R-squared for linear mixed models in each plot.
 #' Default is \code{caption = "slope"}.
@@ -40,43 +42,25 @@
 #' 
 #' library(dplyr)
 #' 
-#' ### Use data from six countries
+#' ### Use the entire of 209 plots data from six countries
 #' 
 #' \donttest{
-#' ## single ecosystem
+#' ## within-ecosystem MF computation
 #' data("forest_function_data_normalized")
 #' data("forest_biodiversity_data")
 #' output1 <- MF1_single(func_data = forest_function_data_normalized[,6:31], weight = 1,
 #'                       species_data = forest_biodiversity_data)
 #'   
-#' ## Display fitted line of linear mixed model with random slopes and random intercepts  
+#' ## BEF relationships: display fitted line of linear mixed model with random slopes and 
+#' ## random intercepts  
 #' output1 <- data.frame(output1, country=rep(forest_function_data_normalized$country, each = 6))
 #' MFggplot(output1, model = "LMM.both", by_group="country", caption = "slope")
 #' 
 #' 
-#' ### Use data from five countries (data in Finland are excluded)
-#'  
-#' ## multiple ecosystems
-#' data("forest_function_data_normalized")
-#' data("forest_biodiversity_data")
-#' forest_function_data_normalized <- filter(forest_function_data_normalized, country != "FIN")
-#' forest_biodiversity_data <- forest_biodiversity_data[-(1:48),]
-#' output2 <- MF2_multiple(func_data = forest_function_data_normalized[,6:32],
-#'                         species_data = forest_biodiversity_data,
-#'                         weight = 1,
-#'                         by_group = "country")
-#' 
-#' ## Display fitted line of linear mixed model with random slopes and random intercepts  
-#' figure_LMM <- MFggplot(output2, model = "LMM.both", by_group = "country", 
-#'                        caption = "slope")
-#' figure_LMM$corr_uncorrected$ALL
-#' figure_LMM$corr_corrected$ALL
-#' }
-#' 
 #' ### Use partial data to quickly obtain output  
 #' ### (Take the first 18 plots in Germany and the last 18 plots in Italy)
 #' 
-#' ## single ecosystem
+#' ## within-ecosystem MF computation for partial data
 #' data("forest_function_data_raw")
 #' data("forest_biodiversity_data")
 #' GER_ITA_forest_function_raw <- filter(forest_function_data_raw, 
@@ -86,16 +70,41 @@
 #'                                                              negative = c("soil_cn_ff_10","wue"),
 #'                                                              by_group = "country")
 #' GER_ITA_forest_biodiversity <- forest_biodiversity_data[c(49:82,181:229),]
-#' output3 <- MF1_single(func_data = GER_ITA_forest_function_normalized[,6:31], weight = 1,
+#' output2 <- MF1_single(func_data = GER_ITA_forest_function_normalized[,6:31], weight = 1,
 #'                       species_data = GER_ITA_forest_biodiversity)
 #' 
 #' 
-#' ## Display fitted line of linear mixed model with random slopes and random intercepts  
-#' output3 <- data.frame(output3, country=rep(GER_ITA_forest_function_normalized$country, each = 6))
-#' MFggplot(output3, model = "LMM.both", by_group="country", caption = "slope")
+#' ## BEF relationships: display fitted line of linear mixed model with random slopes and 
+#' ## random intercepts  
+#' output2 <- data.frame(output2, country=rep(GER_ITA_forest_function_normalized$country, each = 6))
+#' MFggplot(output2, model = "LMM.both", by_group="country", caption = "slope")
+#' 
+#' 
+#' ### Use data from plots in five countries (data in Finland are excluded)
+#'  
+#' ## MF decomposition for all pairs of ecosystems
+#' data("forest_function_data_normalized")
+#' data("forest_biodiversity_data")
+#' forest_function_data_normalized <- filter(forest_function_data_normalized, country != "FIN")
+#' forest_biodiversity_data <- forest_biodiversity_data[-(1:48),]
+#' output3 <- MF2_multiple(func_data = forest_function_data_normalized[,6:32],
+#'                         species_data = forest_biodiversity_data,
+#'                         weight = 1,
+#'                         by_group = "country")
+#' 
+#' ## BEF relationships: display fitted line of linear mixed model with random slopes and 
+#' ## random intercepts  
+#' figure_LMM <- MFggplot(output3, model = "LMM.both", by_group = "country", 
+#'                        caption = "slope")
+#' figure_LMM$corr_uncorrected$ALL
+#' figure_LMM$corr_corrected$ALL
+#' }
 #' 
 #' \donttest{
-#' ## multiple ecosystems
+#' ### Use partial data to quickly obtain output  
+#' ### (Take the first 18 plots in Germany and the last 18 plots in Italy)
+#' 
+#' ## MF decomposition for all pairs of ecosystems for partial data
 #' data("forest_function_data_raw")
 #' data("forest_biodiversity_data")
 #' GER_ITA_forest_function_raw <- filter(forest_function_data_raw, 
@@ -111,19 +120,58 @@
 #'                         by_group = "country")
 #' 
 #' 
-#' ## Display fitted line of linear mixed model with random slopes and random intercepts  
+#' ## BEF relationships: display fitted line of linear mixed model with random slopes and 
+#' ## random intercepts for partial data 
 #' figure_LMM_GER_ITA <- MFggplot(output4, model = "LMM.both", by_group = "country", 
 #'                                caption = "slope")
 #' figure_LMM_GER_ITA$corr_uncorrected$ALL
 #' figure_LMM_GER_ITA$corr_corrected$ALL
 #' }
 #' 
+#' 
+#' ### Use partial data to calculate multifunctionality based on 3 plots in each country, not by pairs 
+#' ### (Take the first 3 plots in each country)
+#' 
+#' data("forest_function_data_raw")
+#' data("forest_biodiversity_data")
+#' 
+#' forest_function_data_raw_3plots <- forest_function_data_raw[c(1:3,29:31,67:69,103:105,
+#'                                                                       146:148,174:176),]
+#' forest_function_data_normalized_3plots <- 
+#'                     function_normalization(data = forest_function_data_raw_3plots,
+#'                     fun_cols = 6:31, 
+#'                     negative = c("soil_cn_ff_10","wue"),
+#'                     by_group = "country")
+#' forest_biodiversity_data_3plots <- 
+#'                    forest_biodiversity_data[c(1:6,49:52,141:148,230:232,351:355,411:417),]
+#' 
+#' output5 <- MF2_multiple(func_data = forest_function_data_normalized_3plots[,6:32],
+#'                         species_data = forest_biodiversity_data_3plots,
+#'                         weight = 1,
+#'                         by_group = "country", by_pair = FALSE)
+#'                         
+#' ## BEF relationships: display fitted line of linear model  
+#' figure_all_plots <- MFggplot(output5, model = "lm", caption = "slope")                                
+#' figure_all_plots$corr_uncorrected$ALL
+#' figure_all_plots$corr_corrected$ALL
+#' 
 #' @export
 
 MFggplot <- function(output, model = "LMM.both", caption = "slope", by_group = NULL){
   
   facets_scale = 'fixed'
-  fit<-model
+  if ("plotID" %in% colnames(output)) fit<-model else {
+    if(model != "lm"){
+      warning("The output for overall multifunctionality decomposition can only use model = 'lm'.")
+    }
+    fit <- "lm"
+  }
+  if (!"plotID" %in% colnames(output)){
+    if(!is.null(by_group)){
+      warning("The output for overall multifunctionality decomposition can only use by_group = 'NULL'.")
+      by_group <- NULL
+    }
+  } 
   text<-caption
   
   if(!(fit %in% c("lm","LMM.intercept","LMM.slope","LMM.both")))
@@ -291,12 +339,17 @@ MFggplot <- function(output, model = "LMM.both", caption = "slope", by_group = N
           geom_abline(data = lm_overall, aes(slope=estimate, intercept=Intercept, lty = Significance), size=1.9, col="red",key_glyph = draw_key_path)
       }
       
-      
+      ## revise_0530
       lm_data <- lm_data %>% group_by(Type,Order.q,group) %>%
-        summarise(Label=ifelse(round(estimate,2)==round(estimate,1),
-                               paste0(round(estimate,2),"0"),
-                               as.character(round(estimate,2))) %>%
-                    paste("Slope = ",.,sep = ifelse(round(estimate,2)<0,""," "))) %>%
+        summarise(Label=if(is.na(estimate)){
+                          c("Slope = NA")
+                        }else{
+                          ifelse(round(estimate,2)==round(estimate,1),
+                                 paste0(round(estimate,2),"0"),
+                                 as.character(round(estimate,2))) %>%
+                          paste("Slope = ",.,sep = ifelse(round(estimate,2)<0,""," "))
+                        }
+                    ) %>%
         mutate(h=rep(c(-0.1,-1.5),(length(unique(group))+1)/2)[1:length(unique(group))],
                v=rep(2+(0:((length(unique(group))+1)/2-1))*1.5,each=2)[1:length(unique(group))]) %>% suppressMessages
       
@@ -387,8 +440,7 @@ MFggplot <- function(output, model = "LMM.both", caption = "slope", by_group = N
                 linetype = guide_legend(override.aes = list(col = "#000000",size=0.7,linewidth = 0.7))
               )+
               labs(x = xlab, y = ylab)+abc
-          }
-          else{
+          }else{
             lm_text <- lm_data %>% select(Order.q,r.squared) %>%
               mutate(Label=paste("R^2==",round(r.squared,3),sep=" "),
                      h=-0.3,
